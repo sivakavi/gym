@@ -48,6 +48,7 @@ class CustomerController extends Controller {
 			'address',
 			'email'
 		]);
+		$customerDetails['photo'] = "";
 		if ($request->hasFile('photo')) {
 			$customerDetails['photo'] 	= $this->fileUpload($request->only('photo'), 'photo');
 		}

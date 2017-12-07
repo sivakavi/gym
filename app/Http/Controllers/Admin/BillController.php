@@ -89,7 +89,7 @@ class BillController extends Controller {
 	{
 		$phno = Input::get('term');
 		$customers = Customer::where('mobilenumber', 'LIKE', "$phno%")->select('mobilenumber')->get()->toArray();
-		$mobilenumbers[] = "";
+		$mobilenumbers = [];
 		foreach ($customers as $key => $value) {
 			$mobilenumbers[] = $value['mobilenumber'];
 		}

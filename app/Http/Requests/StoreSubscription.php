@@ -31,8 +31,7 @@ class StoreSubscription  extends FormRequest
             'edate' => 'required|date|after:sdate',
             'category_type' => 'required', 
             'amt' => 'required',
-            'bamt' => 'required|max:'. ($amt-1),
-            'customer_id' => 'required',
+            'phno' => 'required',
         ];
     }
 }

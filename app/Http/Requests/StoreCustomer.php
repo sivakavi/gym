@@ -26,11 +26,11 @@ class StoreCustomer extends FormRequest
         return [
             'name' => 'required',
             'dob' => 'required|date|before:today',
-            'mobilenumber' => 'required', 
+            'mobilenumber' => 'required|unique:customers', 
             'doj' => 'required|date',
             'photo' => 'sometimes|required|mimes:jpeg,png,jpg',
             'address' => 'required',
-            'email' => 'required|unique:users'
+            'email' => 'required|unique:customers'
         ];
     }
 }

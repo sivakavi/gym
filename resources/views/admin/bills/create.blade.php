@@ -16,7 +16,6 @@
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <input id="phno" type="text" class="form-control col-md-7 col-xs-12 @if($errors->has('phno')) parsley-error @endif"
                                name="phno" value="" required>
-                        <a id="clickDetails" href="#">Click</a>
                         @if($errors->has('phno'))
                             <ul class="parsley-errors-list filled">
                                 @foreach($errors->get('phno') as $error)
@@ -88,32 +87,31 @@
     $(document).ready(function () {
         $("#phno").autocomplete({
             source: "{{ route('admin.bill.phno') }}",
-            minLength: 3
+            minLength: 3,
+            select:function(e,ui){
+                var ajaxUrl = "{{ route('admin.subscription.check') }}";
+                var $select = $('#subscription_id');
+                $select.find('option').remove();
+                if(ui.item.value!=""){
+                    $.ajax({
+                        url: ajaxUrl,
+                        type: 'GET',
+                        data: {
+                            mobilenumber: ui.item.value
+                        },
+                        success:function(response) {
+                            var $select = $('#subscription_id');
+                            $select.find('option').remove();
+                            $select.append('<option value=' + '' + '>' + 'Select any one Subscriptions...' + '</option>');
+                            $.each(response,function(key, value) 
+                            {
+                                $select.append('<option value=' + key + '>' + value + '</option>');
+                            });
+                        }
+                    });
+                }
+            },
 	    });
-    });
-        $('#clickDetails').on('click', function (e, ui) {
-            var ajaxUrl = "{{ route('admin.bill.subscription') }}";
-            var $select = $('#subscription_id');
-            $select.find('option').remove();
-            if($('#phno').val()!=""){
-                $.ajax({
-                    url: ajaxUrl,
-                    type: 'GET',
-                    data: {
-                        mobilenumber: $('#phno').val()
-                    },
-                    success:function(response) {
-                        var $select = $('#subscription_id');
-                        $select.find('option').remove();
-                        $select.append('<option value=' + '' + '>' + 'Select any one Subscriptions...' + '</option>');
-                        $.each(response,function(key, value) 
-                        {
-                            $select.append('<option value=' + key + '>' + value + '</option>');
-                        });
-                    }
-                });
-            }
-        });			
-
+    });			
     </script>
 @endsection

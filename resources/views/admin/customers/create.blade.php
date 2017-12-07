@@ -82,11 +82,11 @@
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="photo" >
                         {{ "Photo" }}
-                        <span class="required">*</span>
+                        <span class="required"></span>
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
                         <input id="photo" type="file" class="form-control col-md-7 col-xs-12 @if($errors->has('photo')) parsley-error @endif"
-                               name="photo" value="" required>
+                               name="photo" value="">
                         @if($errors->has('photo'))
                             <ul class="parsley-errors-list filled">
                                 @foreach($errors->get('photo') as $error)

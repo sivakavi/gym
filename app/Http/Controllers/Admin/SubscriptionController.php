@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 
 use App\Subscription;
 use App\Customer;
+use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use App\Http\Requests\StoreSubscription;
 
 class SubscriptionController extends Controller {
@@ -30,8 +32,8 @@ class SubscriptionController extends Controller {
 	 */
 	public function create()
 	{
-		$customers = Customer::all(['id', 'name']);
-		return view('admin.subscriptions.create', compact('customers'));
+		$categories = Category::all();
+		return view('admin.subscriptions.create', compact('categories'));
 	}
 
 	/**
@@ -46,10 +48,10 @@ class SubscriptionController extends Controller {
 			'sdate',
 			'edate',
 			'category_type',
-			'amt',
-			'bamt',
-			'customer_id'
+			'amt'
 		]);
+		$subscriptionDetails['customer_id'] = Customer::where('mobilenumber', Input::get('phno'))->first()->id;
+		$subscriptionDetails['bamt'] = $subscriptionDetails['amt'];
 		$subscription = Subscription::create($subscriptionDetails);
 		
 		return redirect()->route('admin.subscriptions.index')->with('message', 'Subscription created successfully.');
@@ -96,9 +98,9 @@ class SubscriptionController extends Controller {
 			'edate',
 			'category_type',
 			'amt',
-			'bamt',
 			'customer_id'
 		]);
+		$subscriptionDetails['bamt'] = $subscriptionDetails['amt'];
 		Subscription::find($id)->update($subscriptionDetails);
 		return redirect()->route('admin.subscriptions.index')->with('message', 'Item updated successfully.');
 	}
@@ -115,6 +117,16 @@ class SubscriptionController extends Controller {
 		$subscription->delete();
 
 		return redirect()->route('admin.subscriptions.index')->with('message', 'Item deleted successfully.');
+	}
+
+	public function getSubscription(Request $request)
+	{
+        $phno = Input::get('mobilenumber');
+		$subscription = Customer::where('mobilenumber', "$phno")->first()->subscription()->orderBy('created_at', 'desc')->first();
+		if($subscription){
+			return response()->json(['date' => $subscription->edate]);
+		}
+		return response()->json(['date' => '']);
 	}
 
 }

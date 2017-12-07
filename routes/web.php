@@ -63,9 +63,10 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'mi
     Route::resource('customers', 'CustomerController');
     Route::get('bill/phno', 'BillController@getPhno')->name('bill.phno');
     Route::get('bill/subscription', 'BillController@getSubscription')->name('bill.subscription');
+    Route::get('subscription/check', 'SubscriptionController@getSubscription')->name('subscription.check');
     Route::resource('bills', 'BillController');
     Route::resource('subscriptions', 'SubscriptionController');
-        
+    
 });
 
 
