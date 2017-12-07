@@ -41,7 +41,6 @@
                                 
                                 <td class="text-right">
                                     <a class="btn btn-xs btn-primary" href="{{ route('admin.subscriptions.show', $subscription->id) }}"><i class="glyphicon glyphicon-eye-open"></i> View</a>
-                                    <a class="btn btn-xs btn-warning" href="{{ route('admin.subscriptions.edit', $subscription->id) }}"><i class="glyphicon glyphicon-edit"></i> Edit</a>
                                     <form action="{{ route('admin.subscriptions.destroy', $subscription->id) }}" method="POST" style="display: inline;" onsubmit="if(confirm('Delete? Are you sure?')) { return true } else {return false };">
                                         <input type="hidden" name="_method" value="DELETE">
                                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
