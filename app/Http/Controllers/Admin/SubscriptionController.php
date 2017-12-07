@@ -42,7 +42,6 @@ class SubscriptionController extends Controller {
 	 */
 	public function store(StoreSubscription $request)
 	{
-		dd('uygsc');
 		$subscriptionDetails = $request->only([
 			'sdate',
 			'edate',
@@ -78,8 +77,8 @@ class SubscriptionController extends Controller {
 	public function edit($id)
 	{
 		$subscription = Subscription::findOrFail($id);
-
-		return view('admin.subscriptions.edit', compact('subscription'));
+		$customers = Customer::all(['id', 'name']);
+		return view('admin.subscriptions.edit', compact('subscription', 'customers'));
 	}
 
 	/**

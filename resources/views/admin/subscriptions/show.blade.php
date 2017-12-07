@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
 
-@section('title', 'customer / View')
+@section('title', 'subscription / View')
 
 @section('content')
 <div class="page-header clearfix">
@@ -10,7 +10,7 @@
         <div class="col-md-8 col-sm-12 col-xs-12 center-margin">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>{{$customer->name}} <small>Details</small></h2>
+                        <h2>{{$subscription->name}} <small>Details</small></h2>
                         <ul class="nav navbar-right">
                             <li class="cursor-pointer"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                             </li>
@@ -23,35 +23,32 @@
                         <tbody>
                             <tr>
                             <th scope="row">Id</th>
-                            <td>{{$customer->id}}</td>
+                            <td>{{$subscription->id}}</td>
                             </tr>
                             <tr>
-                            <th scope="row">Name</th>
-                            <td>{{$customer->name}}</td>
+                            <th scope="row">Customer Name</th>
+                            <td>{{$subscription->customer->name}}</td>
                             </tr>
                             <tr>
-                            <th scope="row">Date Of Birth</th>
-                            <td>{{$customer->dob}}</td>
+                            <th scope="row">Start Date</th>
+                            <td>{{$subscription->sdate}}</td>
                             </tr>
                             <tr>
-                            <th scope="row">Mobilenumber</th>
-                            <td>{{$customer->mobilenumber}}</td>
+                            <th scope="row">End Date</th>
+                            <td>{{$subscription->edate}}</td>
                             </tr>
                             <tr>
-                            <th scope="row">Date Of Joining</th>
-                            <td>{{$customer->doj}}</td>
+                            <th scope="row">Category Type</th>
+                            <td>{{$subscription->category_type}}</td>
                             </tr>
                             <tr>
-                            <th scope="row">Photo</th>
-                            <td><img src="{{ asset('uploads/'.$customer->photo) }}" class="img-responsive" style="width:100px"/></td>
+                            <tr>
+                            <th scope="row">Amount</th>
+                            <td>{{$subscription->amt}}</td>
                             </tr>
                             <tr>
-                            <th scope="row">Address</th>
-                            <td>{{$customer->address}}</td>
-                            </tr>
-                            <tr>
-                            <th scope="row">Email</th>
-                            <td>{{$customer->email}}</td>
+                            <th scope="row">Balance Amount</th>
+                            <td>{{$subscription->bamt}}</td>
                             </tr>
                         </tbody>
                         </table>
@@ -61,6 +58,6 @@
     </div>
     
 
-    <a class="btn btn-link" href="{{ route('admin.customers.index') }}"><i class="glyphicon glyphicon-backward"></i>  Back</a>
+    <a class="btn btn-link" href="{{ route('admin.subscriptions.index') }}"><i class="glyphicon glyphicon-backward"></i>  Back</a>
 
 @endsection

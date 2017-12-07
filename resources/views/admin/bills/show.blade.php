@@ -1,6 +1,6 @@
 @extends('admin.layouts.admin')
 
-@section('title', 'customer / View')
+@section('title', 'Bill / View')
 
 @section('content')
 <div class="page-header clearfix">
@@ -8,51 +8,49 @@
 
     <div class="row margin-top-30">
         <div class="col-md-8 col-sm-12 col-xs-12 center-margin">
-                <div class="x_panel">
-                    <div class="x_title">
-                        <h2>{{$customer->name}} <small>Details</small></h2>
-                        <ul class="nav navbar-right">
-                            <li class="cursor-pointer"><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                            </li>
-                        </ul>
-                        <div class="clearfix"></div>
-                    </div>
                     <div class="x_content margin-top-30">
 
                         <table class="table table-bordered">
                         <tbody>
                             <tr>
                             <th scope="row">Id</th>
-                            <td>{{$customer->id}}</td>
+                            <td>{{$bill->id}}</td>
                             </tr>
                             <tr>
-                            <th scope="row">Name</th>
-                            <td>{{$customer->name}}</td>
+                            <th scope="row">Customer Name</th>
+                            <td>{{$bill->subscription->customer->name}}</td>
                             </tr>
+
                             <tr>
-                            <th scope="row">Date Of Birth</th>
-                            <td>{{$customer->dob}}</td>
+                            <th scope="row">Customer Number</th>
+                            <td>{{$bill->subscription->customer->mobilenumber}}</td>
                             </tr>
+
                             <tr>
-                            <th scope="row">Mobilenumber</th>
-                            <td>{{$customer->mobilenumber}}</td>
+                            <th scope="row">Customer Address</th>
+                            <td>{{$bill->subscription->customer->address}}</td>
                             </tr>
+
                             <tr>
-                            <th scope="row">Date Of Joining</th>
-                            <td>{{$customer->doj}}</td>
+                            <th scope="row">Start Date</th>
+                            <td>{{$bill->subscription->sdate}}</td>
                             </tr>
+
                             <tr>
-                            <th scope="row">Photo</th>
-                            <td><img src="{{ asset('uploads/'.$customer->photo) }}" class="img-responsive" style="width:100px"/></td>
+                            <th scope="row">End Date</th>
+                            <td>{{$bill->subscription->edate}}</td>
                             </tr>
+
                             <tr>
-                            <th scope="row">Address</th>
-                            <td>{{$customer->address}}</td>
+                            <th scope="row">Subscription Balance</th>
+                            <td>{{$bill->subscription->bamt}}</td>
                             </tr>
+
                             <tr>
-                            <th scope="row">Email</th>
-                            <td>{{$customer->email}}</td>
+                            <th scope="row">End Date</th>
+                            <td>{{$bill->amt_paid}}</td>
                             </tr>
+
                         </tbody>
                         </table>
                     </div>

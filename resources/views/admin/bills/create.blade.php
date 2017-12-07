@@ -1,23 +1,25 @@
 @extends('admin.layouts.admin')
 
-@section('title','Customers Create' )
+@section('title','Bills Create' )
 
 @section('content')
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/themes/base/minified/jquery-ui.min.css" type="text/css" />
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
-            {{ Form::open(['route'=>['admin.customers.store'],'method' => 'post','class'=>'form-horizontal form-label-left','enctype'=>"multipart/form-data"]) }}
+            {{ Form::open(['route'=>['admin.bills.store'],'method' => 'post','class'=>'form-horizontal form-label-left','enctype'=>"multipart/form-data"]) }}
 
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name" >
-                        {{ "Name" }}
+                        {{ "Phone Number" }}
                         <span class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="name" type="text" class="form-control col-md-7 col-xs-12 @if($errors->has('name')) parsley-error @endif"
-                               name="name" value="" required>
-                        @if($errors->has('name'))
+                        <input id="phno" type="text" class="form-control col-md-7 col-xs-12 @if($errors->has('phno')) parsley-error @endif"
+                               name="phno" value="" required>
+                        <a id="clickDetails" href="#">Click</a>
+                        @if($errors->has('phno'))
                             <ul class="parsley-errors-list filled">
-                                @foreach($errors->get('name') as $error)
+                                @foreach($errors->get('phno') as $error)
                                         <li class="parsley-required">{{ $error }}</li>
                                 @endforeach
                             </ul>
@@ -27,15 +29,16 @@
 
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="dob" >
-                        {{ "Date Of Birth" }}
+                        {{ "Subscriptions" }}
                         <span class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="dob" type="date" class="form-control col-md-7 col-xs-12 @if($errors->has('dob')) parsley-error @endif"
-                               name="dob" value="" required>
-                        @if($errors->has('dob'))
+                        <select id = "subscription_id" class="form-control" name="subscription_id" required>
+                            <option value="">Select any one Subscription...</option>
+                        </select>
+                        @if($errors->has('subscription_id'))
                             <ul class="parsley-errors-list filled">
-                                @foreach($errors->get('dob') as $error)
+                                @foreach($errors->get('subscription_id') as $error)
                                         <li class="parsley-required">{{ $error }}</li>
                                 @endforeach
                             </ul>
@@ -45,94 +48,21 @@
 
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="mobilenumber" >
-                        {{ "Mobile Number" }}
+                        {{ "Amount Paid" }}
                         <span class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="mobilenumber" type="number" class="form-control col-md-7 col-xs-12 @if($errors->has('mobilenumber')) parsley-error @endif"
-                               name="mobilenumber" value="" required>
-                        @if($errors->has('mobilenumber'))
+                        <input id="amt_paid" type="number" class="form-control col-md-7 col-xs-12 @if($errors->has('mobilenumber')) parsley-error @endif"
+                               name="amt_paid" value="" required>
+                        @if($errors->has('amt_paid'))
                             <ul class="parsley-errors-list filled">
-                                @foreach($errors->get('mobilenumber') as $error)
+                                @foreach($errors->get('amt_paid') as $error)
                                         <li class="parsley-required">{{ $error }}</li>
                                 @endforeach
                             </ul>
                         @endif
                     </div>
                 </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="doj" >
-                        {{ "Date Of Joining" }}
-                        <span class="required">*</span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="doj" type="date" class="form-control col-md-7 col-xs-12 @if($errors->has('doj')) parsley-error @endif"
-                               name="doj" value="" required>
-                        @if($errors->has('doj'))
-                            <ul class="parsley-errors-list filled">
-                                @foreach($errors->get('doj') as $error)
-                                        <li class="parsley-required">{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        @endif
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="photo" >
-                        {{ "Photo" }}
-                        <span class="required">*</span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="photo" type="file" class="form-control col-md-7 col-xs-12 @if($errors->has('photo')) parsley-error @endif"
-                               name="photo" value="" required>
-                        @if($errors->has('photo'))
-                            <ul class="parsley-errors-list filled">
-                                @foreach($errors->get('photo') as $error)
-                                        <li class="parsley-required">{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        @endif
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="address" >
-                        {{ "Address" }}
-                        <span class="required">*</span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                               <textarea id="address" class="form-control col-md-7 col-xs-12 @if($errors->has('address')) parsley-error @endif"
-                               name="address" required></textarea>
-                        @if($errors->has('address'))
-                            <ul class="parsley-errors-list filled">
-                                @foreach($errors->get('address') as $error)
-                                        <li class="parsley-required">{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        @endif
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="email">
-                        {{ __('views.admin.users.edit.email') }}
-                        <span class="required">*</span>
-                    </label>
-                    <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="email" type="email" class="form-control col-md-7 col-xs-12 @if($errors->has('email')) parsley-error @endif"
-                               name="email" value="" required>
-                        @if($errors->has('email'))
-                            <ul class="parsley-errors-list filled">
-                                @foreach($errors->get('email') as $error)
-                                    <li class="parsley-required">{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        @endif
-                    </div>
-                </div>
-
 
                 <div class="form-group">
                     <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
@@ -153,4 +83,37 @@
 @section('scripts')
     @parent
     {{ Html::script(mix('assets/admin/js/users/edit.js')) }}
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script>
+    $(document).ready(function () {
+        $("#phno").autocomplete({
+            source: "{{ route('admin.bill.phno') }}",
+            minLength: 3
+	    });
+    });
+        $('#clickDetails').on('click', function (e, ui) {
+            var ajaxUrl = "{{ route('admin.bill.subscription') }}";
+            var $select = $('#subscription_id');
+            $select.find('option').remove();
+            if($('#phno').val()!=""){
+                $.ajax({
+                    url: ajaxUrl,
+                    type: 'GET',
+                    data: {
+                        mobilenumber: $('#phno').val()
+                    },
+                    success:function(response) {
+                        var $select = $('#subscription_id');
+                        $select.find('option').remove();
+                        $select.append('<option value=' + '' + '>' + 'Select any one Subscriptions...' + '</option>');
+                        $.each(response,function(key, value) 
+                        {
+                            $select.append('<option value=' + key + '>' + value + '</option>');
+                        });
+                    }
+                });
+            }
+        });			
+
+    </script>
 @endsection

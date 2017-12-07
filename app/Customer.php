@@ -20,4 +20,9 @@ class Customer extends Model
         'address',
         'email'
     ];
+
+    public function subscription()
+    {
+        return $this->hasMany('App\Subscription');
+    }
 }

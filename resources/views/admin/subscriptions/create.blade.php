@@ -10,7 +10,6 @@
     <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
             {{ Form::open(['route'=>['admin.subscriptions.store'],'method' => 'post','class'=>'form-horizontal form-label-left','enctype'=>"multipart/form-data"]) }}
-                {{ $errors->all() }}
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name" >
                         {{ "Customer Name" }}
@@ -66,19 +65,19 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name" >
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="category_type" >
                         {{ "Category" }}
                         <span class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <select class="form-control" name="category_id" id="customer_id-field" required>
+                        <select class="form-control" name="category_type" id="category_type" required>
                             <option value="1 month">1 Month</option>
                             <option value="3 month">3 Months</option>
                             <option value="6 month">6 Months</option>
                             <option value="year">Year</option>
                         </select>
-                        @if($errors->has("customer_id"))
-                        <span class="parsley-required">{{ $errors->first("customer_id") }}</span>
+                        @if($errors->has("category_type"))
+                        <span class="parsley-required">{{ $errors->first("category_type") }}</span>
                         @endif
                     </div>
                 </div>
@@ -102,12 +101,12 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="bamt">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="amt">
                         {{ "Balance Amount" }}
                         <span class="required">*</span>
                     </label>
                     <div class="col-md-6 col-sm-6 col-xs-12">
-                        <input id="bamt" type="text" class="form-control col-md-7 col-xs-12 @if($errors->has('amt')) parsley-error @endif"
+                        <input id="bamt" type="text" class="form-control col-md-7 col-xs-12 @if($errors->has('bamt')) parsley-error @endif"
                                name="bamt" value="" required>
                         @if($errors->has('bamt'))
                             <ul class="parsley-errors-list filled">
@@ -118,7 +117,6 @@
                         @endif
                     </div>
                 </div>
-
 
                 <div class="form-group">
                     <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
