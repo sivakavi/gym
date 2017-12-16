@@ -32,10 +32,20 @@ class DashboardController extends Controller
     public function index()
     {
         $customers = Customer::all();
+
         $customersCount = $customers->count();
+
         $active_user = Subscription::select('customer_id')->distinct()->get()->count();
+
         $inactive_user = $customersCount - $active_user;
-        return view('admin.dashboard', compact('customersCount', 'active_user', 'inactive_user'));
+
+        $toExpire = Subscription::whereBetween('edate', [Carbon::now()->toDateTimeString(), Carbon::now()->addDays(10)->toDateTimeString()])->get()->count();
+
+        $expired = Subscription::where('edate', '<', Carbon::now()->toDateTimeString())->get()->count();
+
+        $upComingBirthday = Customer::whereRaw('DAYOFYEAR(curdate()) <= DAYOFYEAR(dob) AND DAYOFYEAR(curdate()) + 10 >=  dayofyear(dob)' )->get()->toArray();
+        // dd($upComingBirthday);
+        return view('admin.dashboard', compact('customersCount', 'active_user', 'inactive_user','toExpire', 'expired', 'upComingBirthday'));
     }
 
 
